@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: rootfcl
+      POSTGRES_PASSWORD: fcluser
+      POSTGRES_DB: fclsoft
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
+

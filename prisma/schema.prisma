@@ -1,0 +1,34 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String @id @default(uuid())
+  name  String
+  email String
+}
+
+model Batch {
+  id           Int      @id @default(autoincrement())
+  date         DateTime @default(now())
+  model        Int
+  licenseLevel Int
+  quantity     Int
+  comment      String
+  machineNumbers MachineNumber[]
+}
+
+model MachineNumber {
+  id            Int      @id @default(autoincrement())
+  batchId       Int
+  model         Int
+  date          DateTime
+  serialNumber  String
+  batch         Batch    @relation(fields: [batchId], references: [id])
+}
